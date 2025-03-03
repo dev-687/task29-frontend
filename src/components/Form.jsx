@@ -17,7 +17,7 @@ export default function Form() {
         const formData = new FormData();
         formData.append("video", videoFile);
         try {
-            const response = await axios.post("https://task29-backend-mhflgteli-dev-687s-projects.vercel.app/api/uploads", formData, {
+            const response = await axios.post("https://task29backend.vercel.app/api/uploads", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             setVideoUrl(response.data.videoUrl);
