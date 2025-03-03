@@ -4,17 +4,24 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+  "start": "node api/index.js",
+  "server": "cd api && node index.js",
+  "client": "vite",
+  "dev": "concurrently \"npm run server\" \"npm run client\"",
+  "build": "vite build",
+  "vercel-build": "npm run build"
+},
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
     "axios": "^1.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.9"
+    "tailwindcss": "^4.0.9",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "concurrently": "^7.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
