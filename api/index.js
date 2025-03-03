@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const storage = multer.memoryStorage(); // Use memory storage for Vercel
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 /** Store video in memory (Vercel does not support file storage) */
@@ -20,7 +20,7 @@ app.post("/api/uploads", upload.single("video"), async (req, res) => {
     }
 
     // 🔹 Instead of saving locally, upload to cloud storage (e.g., S3, Cloudinary)
-    const videoUrl = `https://your-cloud-storage.com/${req.file.originalname}`;
+    const videoUrl = `https://task29-frontend.vercel.app/${req.file.originalname}`;
 
     res.json({ videoUrl });
 });
