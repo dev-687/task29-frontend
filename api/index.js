@@ -8,7 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const storage = multer.memoryStorage();
+const storage=multer.diskStorage({
+    destination:(req,res,cb)=>{
+        cb(null,'./uploads');
+    },
+    filename:(req,file,cb)=>{
+        cb(null,Date.now()+path.extname(file.originalname));
+    }
+});
 const upload = multer({ storage });
 
 /** Store video  */
@@ -20,13 +27,13 @@ app.post("/api/uploads", upload.single("video"), async (req, res) => {
     }
 
     
-    const videoUrl = `https://task29-frontend.vercel.app/${req.file.originalname}`;
+    const videoUrl = `http://localhost:5000/api/video/${req.file.filename}`;
 
     res.json({ videoUrl });
 });
 
 /** Stream video (If using an external storage like S3, adjust this route) */
-app.get("/video/:filename", (req, res) => {
+app.get("/api/video/:filename", (req, res) => {
     const videoPath = path.join(process.cwd(), "uploads", req.params.filename);
 
     if (!fs.existsSync(videoPath)) {
@@ -57,7 +64,9 @@ app.get("/video/:filename", (req, res) => {
     const videoStream = fs.createReadStream(videoPath, { start, end });
     videoStream.pipe(res);
 });
+// const PORT=5000;
+// app.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`);
+//   });
 
-export default app;
-
-
+module.exports = app;
