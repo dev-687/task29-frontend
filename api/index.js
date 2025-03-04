@@ -11,7 +11,7 @@ app.use(express.json());
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-/** Store video in memory (Vercel does not support file storage) */
+/** Store video  */
 app.post("/api/uploads", upload.single("video"), async (req, res) => {
     console.log("React");
 
@@ -19,7 +19,7 @@ app.post("/api/uploads", upload.single("video"), async (req, res) => {
         return res.status(400).send("No file found..");
     }
 
-    // 🔹 Instead of saving locally, upload to cloud storage (e.g., S3, Cloudinary)
+    
     const videoUrl = `https://task29-frontend.vercel.app/${req.file.originalname}`;
 
     res.json({ videoUrl });
@@ -41,7 +41,7 @@ app.get("/video/:filename", (req, res) => {
         return res.status(416).send("Requires Range header");
     }
 
-    const CHUNK_SIZE = 10 ** 6; // 1MB chunk
+    const CHUNK_SIZE = 10 ** 6;
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + CHUNK_SIZE, fileSize - 1);
     const contentLength = end - start + 1;
@@ -58,5 +58,6 @@ app.get("/video/:filename", (req, res) => {
     videoStream.pipe(res);
 });
 
-// Export for Vercel serverless deployment
 export default app;
+
+
