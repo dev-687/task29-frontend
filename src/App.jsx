@@ -7,7 +7,9 @@ function App() {
   return (
     <>
     <h1>Task 29: Video Streaming</h1>
+    <div className="">
     <Form />
+    </div>
     </>
   )
 }
