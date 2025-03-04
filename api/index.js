@@ -27,10 +27,14 @@ app.post("/api/uploads", upload.single("video"), async (req, res) => {
     }
 
     
-    const videoUrl = `http://localhost:5000/api/video/${req.file.filename}`;
+    const videoUrl = `https://task29-frontend.vercel.app/api/video/${req.file.filename}`;
 
     res.json({ videoUrl });
 });
+
+app.get('/',(req,res)=>{
+    res.end("<h1>Base Directory</h1>")
+})
 
 /** Stream video (If using an external storage like S3, adjust this route) */
 app.get("/api/video/:filename", (req, res) => {
