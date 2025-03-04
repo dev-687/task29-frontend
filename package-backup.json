@@ -3,13 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "scripts": {
+  "start": "node api/index.js",
+  "server": "cd api && node index.js",
+  "client": "vite",
+  "dev": "concurrently \"npm run server\" \"npm run client\"",
+  "build": "vite build",
+  "vercel-build": "npm run build"
+},
 
-"scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
     "axios": "^1.8.1",
